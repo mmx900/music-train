@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>Vexflow 예시</title>
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+</head>
+<body>
+<h2>VexFlow 예시</h2>
+<section>
+    <h3>용어</h3>
+    <p>라이브러리를 사용하기에 앞서, 기본 개념들의 영문명이 생소할 수 있기 때문에 미리 기재해둔다.</p>
+    <ul>
+        <li>
+            <a href="https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9E%90%EB%A6%AC%ED%91%9C" target="_blank">Clef : 음자리표</a>
+            <ul>
+                <li>treble-clef: 높은 음자리표</li>
+                <li>C-clef: 가온 음자리표</li>
+                <li>bass-clef: 낮은 음자리표</li>
+            </ul>
+        </li>
+        <li><a href="https://ko.wikipedia.org/wiki/%EC%98%A4%EC%84%A0%EB%B3%B4" target="_blank">Staff, Stave : 오선보</a></li>
+        <li>
+            Stem : 음표의 기둥, 혹은 줄기
+            <ul>
+                <li>Vexflow에서는 기둥의 표시 방향을 결정한다.</li>
+            </ul>
+        </li>
+        <li>
+            Time Signature : 박자표 (4/4, 6/8 등)
+        </li>
+        <li>
+            Note : 음표
+            <ul>
+                <li>Whole Note : 온음표</li>
+                <li>Half Note : 2분음표</li>
+                <li>Quarter Note : 4분음표</li>
+                <li>Eighth Note : 8분음표</li>
+                <li>Sixtenth Note : 16분음표</li>
+            </ul>
+        </li>
+        <li>
+            Rest : 쉼표
+        </li>
+    </ul>
+</section>
+<div id="output"></div>
+<script>
+    const { Factory, EasyScore, System } = Vex.Flow;
+
+    const vf = new Factory({
+        renderer: { elementId: 'output', width: 500, height: 200 },
+    });
+
+    const score = vf.EasyScore();
+    const system = vf.System();
+
+    system
+        .addStave({
+            voices: [
+                score.voice(score.notes('C#5/q, B4, A4, G#4', { stem: 'up' })),
+                score.voice(score.notes('C#4/h, C#4', { stem: 'down' })),
+            ],
+        })
+        .addClef('treble')
+        .addTimeSignature('4/4');
+
+    vf.draw();
+</script>
+</body>
+</html>

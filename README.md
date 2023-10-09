@@ -9,6 +9,8 @@
 
 ## Markdown
 
+* https://github.com/0xfe/vexflow (MIT License) - 악보(Music Notation)를 웹상에 표시하기 위한 자바스크립트 라이브러리. 로우레벨인 Vexflow와 하이레벨 래퍼인 EasyScore를 제공.
+* https://github.com/opensheetmusicdisplay/opensheetmusicdisplay (BSD License) - Vexflow를 기반으로 웹상에 MusicXML을 렌더링.
 * https://github.com/music-markdown/music-markdown
 
 ## Score
