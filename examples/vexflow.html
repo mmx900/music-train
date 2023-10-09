@@ -44,28 +44,53 @@
         </li>
     </ul>
 </section>
+<h3>예시</h3>
+<p>실제 악보와 다르게, 예시를 보여줄때는 한 마디 안에 무제한의 노트를 적기도 한다. 이 때는 Voice의 strict 모드를 꺼야 렌더링이 가능한데, EasyScore를 사용할 경우 이것을 끌 방법이 없어서 IncompleteVoice 오류가 발생한다. </p>
+<p>그래서 아래에서는 EasyScore를 쓰지 않고 VexFlow로 직접 그린다.</p>
+<h4>다이어토닉 스케일(Diatonic scale, 온음계)</h4>
 <div id="output"></div>
 <script>
-    const { Factory, EasyScore, System } = Vex.Flow;
+    const { Renderer, Stave, StaveNote, Voice, Formatter } = Vex.Flow;
 
-    const vf = new Factory({
-        renderer: { elementId: 'output', width: 500, height: 200 },
-    });
+    // Create an SVG renderer and attach it to the DIV element with id="output".
+    const div = document.getElementById('output');
+    const renderer = new Renderer(div, Renderer.Backends.SVG);
 
-    const score = vf.EasyScore();
-    const system = vf.System();
+    // Configure the rendering context.
+    renderer.resize(500, 100);
+    const context = renderer.getContext();
+    context.setFont('Arial', 10);
 
-    system
-        .addStave({
-            voices: [
-                score.voice(score.notes('C#5/q, B4, A4, G#4', { stem: 'up' })),
-                score.voice(score.notes('C#4/h, C#4', { stem: 'down' })),
-            ],
-        })
-        .addClef('treble')
-        .addTimeSignature('4/4');
+    // Create a stave of width 400 at position 10, 40.
+    const stave = new Stave(0, 0, 400);
 
-    vf.draw();
+    // Add a clef and time signature.
+    stave.addClef('treble')//.addTimeSignature('4/4');
+
+    // Connect it to the rendering context and draw!
+    stave.setContext(context).draw();
+
+    // Create the notes
+    const notes = [
+        new StaveNote({ keys: ["c/4"], duration: "q" }),
+        new StaveNote({ keys: ["d/4"], duration: "q" }),
+        new StaveNote({ keys: ["e/4"], duration: "q" }),
+        new StaveNote({ keys: ["f/4"], duration: "q" }),
+        new StaveNote({ keys: ["g/4"], duration: "q" }),
+        new StaveNote({ keys: ["a/4"], duration: "q" }),
+        new StaveNote({ keys: ["b/4"], duration: "q" }),
+        new StaveNote({ keys: ["c/5"], duration: "q" }),
+    ];
+
+    // Create a voice in 4/4 and add above notes
+    const voice = new Voice({ num_beats: 4, beat_value: 4 }).setStrict(false);
+    voice.addTickables(notes);
+
+    // Format and justify the notes to 400 pixels.
+    new Formatter().joinVoices([voice]).format([voice], 350);
+
+    // Render voice
+    voice.draw(context, stave);
 </script>
 </body>
 </html>
