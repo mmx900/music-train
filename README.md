@@ -20,6 +20,7 @@
 ## Web Midi API
 
 * [Web MIDI API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
+  * [WEBMIDI.js](https://webmidijs.org/) - 브라우저나 Node.js를 통해 미디 악기를 쉽게 조작하기 위한 Web MIDI API의 래퍼.
 * [OpenMIDI - Github](https://github.com/Morningstar-Engineering/openmidi)
 * [Novation Bass Station II Web interface - Github](https://github.com/francoisgeorgy/BS2-Web)
 * [Midi Baby Editor](https://studiocode.dev/midi-baby-editor/)
