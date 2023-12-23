@@ -2,6 +2,10 @@
 
 음악에 대한 이것저것.
 
+## MIDI
+
+* [MIDI Programming & Commands Explained - How to Program MIDI](https://www.youtube.com/watch?v=IoUtshlzCTo) - 미디에 대한 기본적인 이해. HX Stomp와 컨트롤러를 다뤄본적이 있다면 빠르게 이해할 수 있다.
+
 ## Web Audio API
 
 * [Using Web Audio API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
