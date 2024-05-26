@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>OSMD 예시</title>
+    <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.8.8/build/opensheetmusicdisplay.min.js" integrity="sha256-+xhz67uMExArjkq01wDbR3nQXiLVXP5VpFZxGIRTd1E=" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>OpenSheetMusicDisplay 예시</h2>
+<div>더 많은 데모 : <a href="https://opensheetmusicdisplay.github.io/demo/">https://opensheetmusicdisplay.github.io/demo/</a></div>
+<div>Tab 악보도 표시 가능하다.</div>
+<div id="osmdContainer"></div>
+<script>
+    var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
+    osmd.setOptions({
+        backend: "svg",
+        drawTitle: true,
+        // drawingParameters: "compacttight" // don't display title, composer etc., smaller margins
+    });
+    osmd
+        .load("https://raw.githubusercontent.com/opensheetmusicdisplay/RawJavascript-usage-example/master/resources/Saltarello_sample.musicxml")
+        .then(
+            function() {
+                osmd.render();
+            }
+        );
+</script>
+</body>
+</html>
