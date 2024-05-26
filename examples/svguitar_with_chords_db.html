@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>기타 코드 예시</title>
+    <script src="https://omnibrain.github.io/svguitar/js/svguitar.umd.js"></script>
+</head>
+<body>
+<h2>Guitar Chords 예시</h2>
+<!--container of the chart-->
+<div id="chart"></div>
+
+<script>
+    async function fetchData() {
+        const res = await fetch("https://raw.githubusercontent.com/tombatossals/chords-db/master/lib/guitar.json");
+        return await res.json();
+    }
+
+    (async function() {
+        const data = await fetchData();
+        const chart = new svguitar.SVGuitarChord('#chart')
+
+        const chord = data.chords.Fsharp.find(o => o.suffix === "minor");
+        const position = chord.positions[Math.floor(Math.random() * chord.positions.length)];
+        chart
+            .configure({
+                tuning: ['E', 'A', 'D', 'G', 'B', 'E'],
+            })
+            .chord({
+                // array of [string, fret, text | options]
+                fingers: position.frets.map((f, i) => {
+                    const reversedIndex = position.frets.length - i;
+                    return [reversedIndex, f, position.fingers[i] + ''];
+                }).filter(v => v[1] > -1),
+
+                // optional: barres for barre chords
+                barres: [
+                    {
+                        fret: position.barres[0],
+                    }
+                    /* {
+                        fromString: 5,
+                        toString: 1,
+                        fret: 1,
+                        text: '1',
+                        color: '#0F0',
+                        textColor: '#F00',
+                        className: 'my-barre-chord',
+                    },*/
+                ],
+
+                title: `${chord.key} ${chord.suffix}`,
+
+                // position (defaults to 1)
+                position: position.baseFret,
+            })
+            .draw();
+    })();
+</script>
+</body>
+</html>
