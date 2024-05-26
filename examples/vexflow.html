@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Vexflow 예시</title>
-    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.4/build/cjs/vexflow.js"></script>
 </head>
 <body>
 <h2>VexFlow 예시</h2>
@@ -13,11 +13,46 @@
     <ul>
         <li>
             <a href="https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%9E%90%EB%A6%AC%ED%91%9C" target="_blank">Clef : 음자리표</a>
-            <ul>
-                <li>treble-clef: 높은 음자리표</li>
-                <li>C-clef: 가온 음자리표</li>
-                <li>bass-clef: 낮은 음자리표</li>
-            </ul>
+            <table>
+                <tr>
+                    <td>높은 음자리표</td>
+                    <td>treble-clef</td>
+                    <td>
+                        <div id="#treble-clef"></div>
+                        <script>
+                            (function() {
+                                const vf = new Vex.Flow.Factory({renderer: {elementId: '#treble-clef'}});
+                                const system = vf.System();
+
+                                system.addStave({
+                                    voices: []
+                                }).addClef('treble');
+
+                                vf.draw();
+                            })();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>낮은 음자리표</td>
+                    <td>bass-clef</td>
+                    <td>
+                        <div id="#bass-clef"></div>
+                        <script>
+                            (function() {
+                                const vf = new Vex.Flow.Factory({renderer: {elementId: '#bass-clef'}});
+                                const system = vf.System();
+
+                                system.addStave({
+                                    voices: []
+                                }).addClef('bass');
+
+                                vf.draw();
+                            })();
+                        </script>
+                    </td>
+                </tr>
+            </table>
         </li>
         <li><a href="https://ko.wikipedia.org/wiki/%EC%98%A4%EC%84%A0%EB%B3%B4" target="_blank">Staff, Stave : 오선보</a></li>
         <li>
@@ -27,17 +62,190 @@
             </ul>
         </li>
         <li>
-            Time Signature : 박자표 (4/4, 6/8 등)
+            Time Signature : 박자표
+            <table>
+                <tr>
+                    <td>4/4</td>
+                    <td>
+                        <div id="#time-signature-4_4"></div>
+                        <script>
+                            (function() {
+                                const vf = new Vex.Flow.Factory({renderer: {elementId: '#time-signature-4_4'}});
+                                const system = vf.System();
+
+                                system.addStave({
+                                    voices: []
+                                }).addTimeSignature('4/4');
+
+                                vf.draw();
+                            })();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6/8</td>
+                    <td>
+                        <div id="#time-signature-6_8"></div>
+                        <script>
+                            (function() {
+                                const vf = new Vex.Flow.Factory({renderer: {elementId: '#time-signature-6_8'}});
+                                const system = vf.System();
+
+                                system.addStave({
+                                    voices: []
+                                }).addTimeSignature('6/8');
+
+                                vf.draw();
+                            })();
+                        </script>
+                    </td>
+                </tr>
+            </table>
         </li>
         <li>
             Note : 음표
-            <ul>
-                <li>Whole Note : 온음표</li>
-                <li>Half Note : 2분음표</li>
-                <li>Quarter Note : 4분음표</li>
-                <li>Eighth Note : 8분음표</li>
-                <li>Sixtenth Note : 16분음표</li>
-            </ul>
+            <table>
+                <tr>
+                    <td>온음표</td>
+                    <td>Whole Note</td>
+                    <td>
+                        <div id="#whole-note"></div>
+                        <script>
+                            (function() {
+                                const { Renderer, Stave, StaveNote, Voice, Formatter } = Vex.Flow;
+
+                                const div = document.getElementById('#whole-note');
+                                const renderer = new Renderer(div, Renderer.Backends.SVG);
+                                const context = renderer.getContext();
+                                context.setFont('Arial', 10);
+
+                                const stave = new Stave(0, 0, 400);
+
+                                const notes = [
+                                    new StaveNote({keys: ["c/4"], duration: "w"}),
+                                ];
+                                const voice = new Voice({num_beats: 4, beat_value: 4}).setStrict(false);
+                                voice.addTickables(notes);
+
+                                new Formatter().joinVoices([voice]).format([voice], 350);
+                                voice.draw(context, stave);
+                            })();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2분음표</td>
+                    <td>Half Note</td>
+                    <td>
+                        <div id="#half-note"></div>
+                        <script>
+                            (function() {
+                                const { Renderer, Stave, StaveNote, Voice, Formatter } = Vex.Flow;
+
+                                const div = document.getElementById('#half-note');
+                                const renderer = new Renderer(div, Renderer.Backends.SVG);
+                                const context = renderer.getContext();
+                                context.setFont('Arial', 10);
+
+                                const stave = new Stave(0, 0, 400);
+
+                                const notes = [
+                                    new StaveNote({keys: ["c/4"], duration: "h"}),
+                                ];
+                                const voice = new Voice({num_beats: 4, beat_value: 4}).setStrict(false);
+                                voice.addTickables(notes);
+
+                                new Formatter().joinVoices([voice]).format([voice], 350);
+                                voice.draw(context, stave);
+                            })();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4분음표</td>
+                    <td>Quarter Note</td>
+                    <td>
+                        <div id="#quarter-note"></div>
+                        <script>
+                            (function() {
+                                const { Renderer, Stave, StaveNote, Voice, Formatter } = Vex.Flow;
+
+                                const div = document.getElementById('#quarter-note');
+                                const renderer = new Renderer(div, Renderer.Backends.SVG);
+                                const context = renderer.getContext();
+                                context.setFont('Arial', 10);
+
+                                const stave = new Stave(0, 0, 400);
+
+                                const notes = [
+                                    new StaveNote({keys: ["c/4"], duration: "q"}),
+                                ];
+                                const voice = new Voice({num_beats: 4, beat_value: 4}).setStrict(false);
+                                voice.addTickables(notes);
+
+                                new Formatter().joinVoices([voice]).format([voice], 350);
+                                voice.draw(context, stave);
+                            })();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8분음표</td>
+                    <td>Eighth Note</td>
+                    <td>
+                        <div id="#eighth-note"></div>
+                        <script>
+                            (function() {
+                                const { Renderer, Stave, StaveNote, Voice, Formatter } = Vex.Flow;
+
+                                const div = document.getElementById('#eighth-note');
+                                const renderer = new Renderer(div, Renderer.Backends.SVG);
+                                const context = renderer.getContext();
+                                context.setFont('Arial', 10);
+
+                                const stave = new Stave(0, 0, 400);
+
+                                const notes = [
+                                    new StaveNote({keys: ["c/4"], duration: "8"}),
+                                ];
+                                const voice = new Voice({num_beats: 4, beat_value: 4}).setStrict(false);
+                                voice.addTickables(notes);
+
+                                new Formatter().joinVoices([voice]).format([voice], 350);
+                                voice.draw(context, stave);
+                            })();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>16분음표</td>
+                    <td>Sixtenth Note</td>
+                    <td>
+                        <div id="#sixtenth-note"></div>
+                        <script>
+                            (function() {
+                                const { Renderer, Stave, StaveNote, Voice, Formatter } = Vex.Flow;
+
+                                const div = document.getElementById('#sixtenth-note');
+                                const renderer = new Renderer(div, Renderer.Backends.SVG);
+                                const context = renderer.getContext();
+                                context.setFont('Arial', 10);
+
+                                const stave = new Stave(0, 0, 400);
+
+                                const notes = [
+                                    new StaveNote({keys: ["c/4"], duration: "16"}),
+                                ];
+                                const voice = new Voice({num_beats: 4, beat_value: 4}).setStrict(false);
+                                voice.addTickables(notes);
+
+                                new Formatter().joinVoices([voice]).format([voice], 350);
+                                voice.draw(context, stave);
+                            })();
+                        </script>
+                    </td>
+                </tr>
+            </table>
         </li>
         <li>
             Rest : 쉼표
@@ -70,27 +278,28 @@
     // Connect it to the rendering context and draw!
     stave.setContext(context).draw();
 
-    // Create the notes
-    const notes = [
-        new StaveNote({ keys: ["c/4"], duration: "q" }),
-        new StaveNote({ keys: ["d/4"], duration: "q" }),
-        new StaveNote({ keys: ["e/4"], duration: "q" }),
-        new StaveNote({ keys: ["f/4"], duration: "q" }),
-        new StaveNote({ keys: ["g/4"], duration: "q" }),
-        new StaveNote({ keys: ["a/4"], duration: "q" }),
-        new StaveNote({ keys: ["b/4"], duration: "q" }),
-        new StaveNote({ keys: ["c/5"], duration: "q" }),
-    ];
+    (function() {
+        const notes = [
+            new StaveNote({keys: ["c/4"], duration: "q"}),
+            new StaveNote({keys: ["d/4"], duration: "q"}),
+            new StaveNote({keys: ["e/4"], duration: "q"}),
+            new StaveNote({keys: ["f/4"], duration: "q"}),
+            new StaveNote({keys: ["g/4"], duration: "q"}),
+            new StaveNote({keys: ["a/4"], duration: "q"}),
+            new StaveNote({keys: ["b/4"], duration: "q"}),
+            new StaveNote({keys: ["c/5"], duration: "q"}),
+        ];
 
-    // Create a voice in 4/4 and add above notes
-    const voice = new Voice({ num_beats: 4, beat_value: 4 }).setStrict(false);
-    voice.addTickables(notes);
+        // Create a voice in 4/4 and add above notes
+        const voice = new Voice({num_beats: 4, beat_value: 4}).setStrict(false);
+        voice.addTickables(notes);
 
-    // Format and justify the notes to 400 pixels.
-    new Formatter().joinVoices([voice]).format([voice], 350);
+        // Format and justify the notes to 400 pixels.
+        new Formatter().joinVoices([voice]).format([voice], 350);
 
-    // Render voice
-    voice.draw(context, stave);
+        // Render voice
+        voice.draw(context, stave);
+    })();
 </script>
 </body>
 </html>
