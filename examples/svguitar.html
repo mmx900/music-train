@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>기타 코드 예시</title>
+    <script src="https://omnibrain.github.io/svguitar/js/svguitar.umd.js"></script>
+</head>
+<body>
+<h2>Guitar Chords 예시</h2>
+<!--container of the chart-->
+<div id="chart"></div>
+
+<script>
+    (function() {
+        // initialize the chart
+        var chart = new svguitar.SVGuitarChord('#chart')
+
+        // draw the chart
+        chart
+            .configure({
+                /* configuration */
+            })
+            .chord({
+                // array of [string, fret, text | options]
+                fingers: [
+                    // finger at string 1, fret 2, with text '2'
+                    [1, 2, '2'],
+
+                    // finger at string 2, fret 3, with text '3', colored red and has class '.red'
+                    [2, 3, {text: '3', color: '#F00', className: 'red'}],
+
+                    // finger is triangle shaped
+                    [3, 3, {shape: 'triangle'}],
+                    [6, 'x'],
+                ],
+
+                // optional: barres for barre chords
+                barres: [
+                    {
+                        fromString: 5,
+                        toString: 1,
+                        fret: 1,
+                        text: '1',
+                        color: '#0F0',
+                        textColor: '#F00',
+                        className: 'my-barre-chord',
+                    },
+                ],
+
+                // title of the chart (optional)
+                title: 'F# minor',
+
+                // position (defaults to 1)
+                position: 2,
+            })
+            .draw();
+    })();
+</script>
+</body>
+</html>
