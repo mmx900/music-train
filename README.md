@@ -2,6 +2,10 @@
 
 음악에 대한 이것저것.
 
+## Theory
+
+* https://github.com/tonaljs/tonal 음악 이론을 모델링한 JS(TS) 라이브러리.
+
 ## MIDI
 
 * [MIDI Programming & Commands Explained - How to Program MIDI](https://www.youtube.com/watch?v=IoUtshlzCTo) - 미디에 대한 기본적인 이해. HX Stomp와 컨트롤러를 다뤄본적이 있다면 빠르게 이해할 수 있다.
